@@ -20,7 +20,7 @@ def path_to_img_html(path):
 # Load data
 db = Database()
 user_name = st.session_state.username
-# all_monsters = db.get_monsters()
+user = db.get_user_by_name(user_name)
 monsters = db.get_user_monsters(user_name)
 steps = {m.step for m in monsters}
 zones = {m.zone for m in monsters}
@@ -165,10 +165,10 @@ if df is not None and len(df):
             subs = st.button("Decrease", help="Decrease monster's quantity", icon=":material/remove:", use_container_width=True)
 
         if add:
-            db.update_user_monster_quantity(1, monster_ids, 1)
+            db.update_user_monster_quantity(user.id, monster_ids, 1)
             st.rerun()
         if subs:
-            db.update_user_monster_quantity(1, monster_ids, -1)
+            db.update_user_monster_quantity(user.id, monster_ids, -1)
             st.rerun()
 
 else:
