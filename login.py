@@ -25,7 +25,7 @@ def login():
     if st.button("Login", use_container_width=True):
         if check_credentials(username, password):
             st.session_state.authenticated = True
-            st.session_state.username = username
+            st.session_state.username = username.lower()
             st.rerun()
         else:
             st.error("❌ Invalid username or password")
