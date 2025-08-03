@@ -34,7 +34,7 @@ with st.sidebar:
     form = st.form("my_form",border=False)
     # Filter input
     search_name = form.text_input("Filter by name")
-    owernership_choice = form.selectbox("Filter by ownership", ["All", "Monsters I have", "Monsters I don't have"])
+    owernership_choice = form.selectbox("Filter by ownership", ["All", "Owned", "Not owned"])
     step_choice = form.selectbox("Filter by step", ["All"]+sorted(list(steps)))
     zone_choice = form.selectbox("Filter by zone", ["All"]+sorted(list(zones)))
         
@@ -68,7 +68,7 @@ with st.sidebar:
             if(len(df)):
                 df["Image"] = df["Image"].apply(path_to_img_html)
 
-        if owernership_choice == "Monsters I have":
+        if owernership_choice == "Owned":
             filtred_monsters = [m for m in monsters if m.step in selected_steps and m.zone in selected_zones and m.quantity != 0 ]
             data = []
             for m in filtred_monsters:
@@ -84,7 +84,7 @@ with st.sidebar:
             if(len(df)):
                 df["Image"] = df["Image"].apply(path_to_img_html)
 
-        if owernership_choice == "Monsters I don't have":
+        if owernership_choice == "Not owned":
             filtred_monsters = [m for m in monsters if m.step in selected_steps and m.zone in selected_zones and m.quantity == 0 ]
             data = []
             for m in filtred_monsters:

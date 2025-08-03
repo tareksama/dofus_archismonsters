@@ -43,7 +43,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), nullable=False, unique=True)
-    password = Column(String(255), nullable=False, unique=True)
+    password = Column(String(255), nullable=False)
 
     monsters = relationship(
         "Monster",
@@ -64,9 +64,9 @@ class Database:
     def get_session(self):
         return self.Session()
 
-    def add_user(self, name):
+    def add_user(self, name, password):
         session = self.get_session()
-        user = User(name=name)
+        user = User(name=name,password=password)
         session.add(user)
         session.commit()
         session.close()
